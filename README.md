@@ -7,18 +7,21 @@ Everything you need to build a Svelte project
 - SvelteKit
 
 **Backend**
+
 - Firebase:
   - Authentication
   - Firestore
   - Storage
 
 **UI**
+
 - Tailwindcss
 - DaisyUI
 - Tippy.js
 
 **Form Validation**
+
 - Felte
 - Yup
 
-**Just create a .env file with your Firebase project credentials and they will be used at ```src/lib/firebase/config``` to bootstrap the project.
+**Just create a .env file with your Firebase project credentials and they will be used at `src/lib/firebase/config` to bootstrap the project.**
