@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.git\\COMMIT_EDITMSG
+
+/lib/firebase/config.ts
+
+.env
