@@ -1,4 +1,4 @@
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { list, getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { app } from './config';
 import type { iResponse } from './interfaces';
 
@@ -62,6 +62,18 @@ class StorageAPI {
 			return { status: 200, data: { downloadURL } };
 		} catch (error) {
 			return { status: 500, message: `Error getting download url ${error}` };
+		}
+	};
+
+	listFiles = async (): Promise<iResponse> => {
+		console.log('LISTING FILES');
+		
+		try {
+			const allFiles = await list(this.storage);
+			console.log('ALL FILES:', allFiles);
+			return { status: 200 };
+		} catch (error) {
+			return { status: 500 };
 		}
 	};
 }

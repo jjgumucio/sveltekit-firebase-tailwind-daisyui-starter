@@ -1,6 +1,7 @@
 <script lang="ts">
   export let label: string
   export let name: string
+  export let multiple: boolean
 </script>
 
 <template>
@@ -27,6 +28,6 @@
     "
 	>
 		<span class="text-base leading-normal">{label}</span>
-		<input type="file" class="hidden" {name} />
+		<input type="file" class="hidden" {name} {multiple} />
 	</label>
 </template>
