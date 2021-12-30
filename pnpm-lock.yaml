@@ -32,6 +32,7 @@ specifiers:
   tslib: ^2.3.1
   typescript: ^4.4.3
   yup: ^0.32.11
+  yup-locales: ^1.2.0
 
 dependencies:
   '@felte/reporter-tippy': 0.3.12_tippy.js@6.3.7
@@ -44,6 +45,7 @@ dependencies:
   svelte-filepond: 0.2.0_filepond@4.30.3
   tippy.js: 6.3.7
   yup: 0.32.11
+  yup-locales: 1.2.0
 
 devDependencies:
   '@sveltejs/kit': 1.0.0-next.208_svelte@3.44.3
@@ -3560,6 +3562,10 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 20.2.9
+    dev: false
+
+  /yup-locales/1.2.0:
+    resolution: {integrity: sha512-3sMxJjgbiLxUMA/D05l5uOIZKOxqDD1BnA7jta3bVqMSEkoJyNUVvU+RzYfaxagQvlxSXXj57zjM+tnIaHKeQQ==}
     dev: false
 
   /yup/0.32.11:

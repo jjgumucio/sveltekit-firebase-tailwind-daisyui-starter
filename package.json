@@ -44,6 +44,7 @@
 		"firebase": "^9.2.0",
 		"svelte-filepond": "^0.2.0",
 		"tippy.js": "^6.3.7",
-		"yup": "^0.32.11"
+		"yup": "^0.32.11",
+		"yup-locales": "^1.2.0"
 	}
 }
