@@ -2,7 +2,7 @@
 	import '../app.css';
 	import 'tippy.js/dist/tippy.css';
 	import AuthAPI from '$lib/firebase/auth';
-	import SessionStore from '$lib/stores/session';
+	import UserStore from '$lib/stores/user';
 	import AuthIndicator from '$lib/components/nav/AuthIndicator.svelte';
 	import FirestoreAPI from '$lib/firebase/firestore';
 	const Auth = new AuthAPI();
@@ -25,7 +25,7 @@
 </script>
 
 <script>
-	$: user = $SessionStore;
+	$: user = $UserStore;
 </script>
 
 <template>

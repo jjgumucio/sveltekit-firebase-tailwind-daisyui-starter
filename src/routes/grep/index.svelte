@@ -7,15 +7,12 @@
 	import { validationSchema } from '$lib/validations/testValidations';
 	import FilePond from '$lib/components/inputs/FilePond.svelte';
 	import TagsInput from '$lib/components/inputs/TagsInput.svelte';
-	import SessionStore from '$lib/stores/session';
 
 	const Firestore = new FirestoreAPI();
 	const Storage = new StorageAPI();
-
 </script>
 
 <script lang="ts">
-
 	const { form } = createForm({
 		extend: [validator, reporter()],
 		validateSchema: validationSchema,

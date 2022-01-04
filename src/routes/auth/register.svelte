@@ -23,9 +23,9 @@
 	});
 
 	const signUp = async (values: any) => {
-		const { email, password } = values;
+		const { email, password, rememberMe} = values;
 		try {
-			await Auth.signUpWithEmail(email, password);
+			await Auth.signUpWithEmail(email, password, rememberMe);
       goto('/grep')
 		} catch (error) {
 			console.log('Error login in:', error);

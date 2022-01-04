@@ -9,7 +9,7 @@ import {
 import type { User } from 'firebase/auth';
 import { app } from './config';
 import type { iResponse } from './interfaces';
-import SessionStore from '$lib/stores/session';
+import UserStore from '$lib/stores/user';
 
 /**
  * Firebase Authentication API implementation.
@@ -35,13 +35,9 @@ class FirebaseAuthAPI {
 			if (rememberMe) {
 				this.onAuthStateChange()
 			}
-
 			return { status: 200, data: userCredential.user };
 		} catch (error) {
-			const errorMessage = `Error on User creation: ${error.message}`;
-			console.error(errorMessage);
-			// throw Error(errorMessage);
-			return { status: 500, message: errorMessage };
+			throw Error({...error});
 		}
 	};
 
@@ -65,10 +61,7 @@ class FirebaseAuthAPI {
 			}
 			return { status: 200, data: userCredential.user };
 		} catch (error) {
-			const errorMessage = `Error on User signin: ${error.message}`;
-			console.error(errorMessage);
-			// throw Error(errorMessage);
-			return { status: 500, message: errorMessage };
+			throw Error({...error});
 		}
 	};
 
@@ -82,8 +75,7 @@ class FirebaseAuthAPI {
 			await signOut(this.auth);
 			return { status: 200 };
 		} catch (error) {
-			const errorMessage = `Error on signout: ${error.message}`;
-			return { status: 500, message: errorMessage };
+			throw Error({...error});
 		}
 	};
 
@@ -98,10 +90,10 @@ class FirebaseAuthAPI {
 		let userObj: User;
 		onAuthStateChanged(this.auth, (user) => {
 			if (user) {
-				SessionStore.set(user);
+				UserStore.set(user);
 				userObj = user;
 			} else {
-				SessionStore.set(null);
+				UserStore.set(null);
 				userObj = null;
 			}
 		});
@@ -121,7 +113,7 @@ class FirebaseAuthAPI {
 			// The client should redirect to the login page
 			return { status: 200 };
 		} catch (error) {
-			return { status: 500, message: `Error sending reset email: ${error}` };
+			throw Error({...error});
 		}
 	};
 }
