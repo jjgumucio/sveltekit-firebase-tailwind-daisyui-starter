@@ -4,6 +4,7 @@
 	import reporter from '@felte/reporter-tippy';
 	import { loginSchema } from './validations';
 	import FirebaseAuth from '$lib/firebase/auth';
+	import { goto } from '$app/navigation';
 
 	const Auth = new FirebaseAuth();
 
@@ -11,7 +12,6 @@
 
 	const { form } = createForm({
 		onSubmit: async (values) => {
-			console.log('VAL:', values);
 			try {
 				await login(values);
 			} catch (error) {
@@ -23,20 +23,19 @@
 	});
 
 	const login = async (values: any) => {
-		const { email, password } = values;
-		console.log('VALUES:', values);
-
+		const { email, password, rememberMe } = values;
 		try {
-			await Auth.signInWithEmail(email, password);
+			await Auth.signInWithEmail(email, password, rememberMe);
+			goto('/');
 		} catch (error) {
 			console.log('Error login in:', error);
 		}
 	};
 </script>
 
-<div class="container mx-auto px-4 h-full align-middle">
+<div class="container mx-auto px-4 mt-12 align-middle">
 	<div class="flex content-center items-center justify-center h-full">
-		<div class="w-full lg:w-4/12 px-4">
+		<div class="w-full lg:w-6/12 px-4">
 			<div
 				class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
 			>
@@ -94,9 +93,10 @@
 						<div>
 							<label class="inline-flex items-center cursor-pointer">
 								<input
-									id="customCheckLogin"
+									id="rememberMe"
 									type="checkbox"
 									class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+									name="rememberMe"
 								/>
 								<span class="ml-2 text-sm font-semibold text-blueGray-600"> Recordarme </span>
 							</label>
@@ -121,7 +121,7 @@
 				</div>
 				<div class="w-1/2 text-right">
 					<a href="/auth/register" class="text-blueGray-200">
-						<small>Crea tu cuenta</small>
+						<small>Ingresar</small>
 					</a>
 				</div>
 			</div>
@@ -131,6 +131,6 @@
 
 <style>
 	.container {
-		height: 100vh;
+		height: 100vh - 4rem;
 	}
 </style>

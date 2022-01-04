@@ -12,7 +12,6 @@
 
 	const { form } = createForm({
 		onSubmit: async (values) => {
-			console.log('VAL:', values);
 			try {
 				await signUp(values);
 			} catch (error) {
@@ -34,7 +33,7 @@
 	};
 </script>
 
-<div class="container mx-auto px-4 h-full align-middle">
+<div class="container mx-auto px-4 mt-12 align-middle">
 	<div class="flex content-center items-center justify-center h-full">
 		<div class="w-full lg:w-6/12 px-4">
 			<div
@@ -108,21 +107,17 @@
 							/>
 						</div>
 
-						<!-- <div>
-              <label class="inline-flex items-center cursor-pointer">
-                <input
-                  id="customCheckLogin"
-                  type="checkbox"
-                  class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                />
-                <span class="ml-2 text-sm font-semibold text-blueGray-600">
-                  I agree with the
-                  <a href="#pablo" on:click={(e) => e.preventDefault()} class="text-red-500">
-                    Privacy Policy
-                  </a>
-                </span>
-              </label>
-            </div> -->
+						<div>
+							<label class="inline-flex items-center cursor-pointer">
+								<input
+									id="rememberMe"
+									type="checkbox"
+									class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+									name="rememberMe"
+								/>
+								<span class="ml-2 text-sm font-semibold text-blueGray-600"> Recordarme </span>
+							</label>
+						</div>
 
 						<div class="text-center mt-6">
 							<button
@@ -141,6 +136,6 @@
 
 <style>
 	.container {
-		height: 100vh;
+		height: 100vh - 4rem;
 	}
 </style>

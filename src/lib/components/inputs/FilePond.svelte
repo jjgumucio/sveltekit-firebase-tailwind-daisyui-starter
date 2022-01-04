@@ -33,7 +33,10 @@
 	const handleAddFile = async (err, fileItem) => {
 		console.log('A file has been asdfasd', fileItem);
 		try {
-			await Storage.listFiles();
+			const list = await Storage.listFiles();
+			console.log('LIST:', list);
+
+			return;
 			const uploadRes = Storage.uploadFile(fileItem, '/test');
 			console.log('UP:', uploadRes);
 		} catch (error) {

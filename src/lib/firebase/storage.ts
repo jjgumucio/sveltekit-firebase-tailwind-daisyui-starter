@@ -1,11 +1,22 @@
-import { list, getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import {
+	list,
+	getStorage,
+	connectStorageEmulator,
+	ref,
+	uploadBytesResumable,
+	getDownloadURL
+} from 'firebase/storage';
 import { app } from './config';
 import type { iResponse } from './interfaces';
 
 class StorageAPI {
 	storage;
+	storageRef;
+	emulator;
 	constructor() {
 		this.storage = getStorage(app);
+		this.storageRef = ref(this.storage);
+		connectStorageEmulator(this.storage, 'localhost', 9199)
 	}
 
 	// Upload file and metadata to the object 'images/mountains.jpg'
@@ -66,14 +77,11 @@ class StorageAPI {
 	};
 
 	listFiles = async (): Promise<iResponse> => {
-		console.log('LISTING FILES');
-		
 		try {
-			const allFiles = await list(this.storage);
-			console.log('ALL FILES:', allFiles);
-			return { status: 200 };
+			const allFiles = await list(this.storageRef);
+			return { status: 200, data: allFiles };
 		} catch (error) {
-			return { status: 500 };
+			return { status: 500, message: `Error: ${error.code} ${error.message}` };
 		}
 	};
 }

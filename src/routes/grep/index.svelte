@@ -6,12 +6,16 @@
 	import StorageAPI from '$lib/firebase/storage';
 	import { validationSchema } from '$lib/validations/testValidations';
 	import FilePond from '$lib/components/inputs/FilePond.svelte';
+	import TagsInput from '$lib/components/inputs/TagsInput.svelte';
+	import SessionStore from '$lib/stores/session';
 
 	const Firestore = new FirestoreAPI();
 	const Storage = new StorageAPI();
+
 </script>
 
 <script lang="ts">
+
 	const { form } = createForm({
 		extend: [validator, reporter()],
 		validateSchema: validationSchema,
@@ -40,11 +44,36 @@
 	};
 </script>
 
-<div class="h-full p-4">
+<div class="mx-auto w-full lg:w-4/12 px-4">
+	<h1 class="text-3xl my-10">Nueva búsqueda:</h1>
+
+	<p class="text-xl my-10">
+		Mediante esta interfaz podrá seleccionar un estudio ya existente, o crear uno nuevo, al cual se
+		le asociará la búsqueda que especifique a continuación y sus respectivos resultados.
+	</p>
+
+	<TagsInput label="Seleccione o cree estudio:" options={[]} multiple={false} />
+
 	<form use:form>
-		<div class="mx-auto form-control my-4">
+		<div class="form-control my-4">
+			<label for="filepond">Arrastre o seleccione archivos</label>
 			<FilePond />
 		</div>
+
+		<TagsInput
+			label="Seleccione o agregue términos:"
+			options={[
+				'GASTRITIS CRONICA ATROFICA',
+				'METAPLASIA INTESTINAL COMPLETA',
+				'METAPLASIA INTESTINAL INCOMPLETA',
+				'METAPLASIA INTESTINAL MIXTA',
+				'METAPLASIA PSEUDOPILORICA',
+				'HELICOBACTER PYLORI',
+				'OLGA',
+				'OLGIM'
+			]}
+		/>
+
 		<button class="btn" type="submit">Buscar</button>
 	</form>
 </div>
