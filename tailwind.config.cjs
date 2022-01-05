@@ -1,15 +1,10 @@
 const config = {
-	mode: 'jit',
-	purge: ['./src/**/*.{html,js,svelte,ts}'],
-
+	content: ['./src/**/*.{html,js,jsx,svelte,tsx}'],
 	theme: {
 		extend: {}
 	},
 
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('daisyui'),
-  ]
+	plugins: [require('@tailwindcss/typography'), require('daisyui')]
 };
 
 module.exports = config;

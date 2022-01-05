@@ -1,32 +1,23 @@
 <script lang="ts" context="module">
-	import '../app.css';
 	import 'tippy.js/dist/tippy.css';
-	import AuthAPI from '$lib/firebase/auth';
-	import UserStore from '$lib/stores/user';
+	import { SvelteToast } from '@zerodevx/svelte-toast';
+	import { UserStore, isLoggedIn } from '$lib/stores/user';
 	import AuthIndicator from '$lib/components/nav/AuthIndicator.svelte';
 	import FirestoreAPI from '$lib/firebase/firestore';
+	import AuthAPI from '$lib/firebase/auth';
+	import '../app.css';
+
 	const Auth = new AuthAPI();
-	const Firestore = new FirestoreAPI();
-
-	export async function load({ url, params, fetch, session, stuf }) {
-		try {
-			const researchDocs = await Firestore.listCollectionDocs('researchs');
-			console.log('RESEARCHS:', researchDocs);
-
-			return {
-				props: {
-					researches: researchDocs
-				}
-			};
-		} catch (error) {
-			console.log('Error:', error.message);
-		}
-	}
 </script>
 
 <script>
+	Auth.onAuthStateChange();
 	$: user = $UserStore;
 </script>
+
+<svelte:head>
+	<title>GREP PROJECT</title>
+</svelte:head>
 
 <template>
 	<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
@@ -75,10 +66,34 @@
 			<AuthIndicator {user} />
 		</div>
 	</div>
-	<slot />
+	<main>
+		<slot />
+		<SvelteToast options={{ reversed: true, intro: { y: 50 } }} />
+	</main>
+	<footer class="p-4 footer bg-slate-800 text-slate-50 footer-center">
+		<div>
+			<p>
+				Copyright © 2021 - All right reserved
+				<a href="http://pixelcode.cl" target="_blank">
+					<span class="text-amber-400">Pixel</span><span class="text-sky-500">Code</span>
+				</a>
+			</p>
+		</div>
+	</footer>
 </template>
 
 <style global>
 	@import 'filepond/dist/filepond.css';
 	@import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+	:root {
+		--toastContainerTop: auto;
+		--toastContainerRight: auto;
+		--toastContainerBottom: 1rem;
+		--toastContainerLeft: calc(50vw - 8rem);
+	}
+
+	main {
+		height: calc(100vh - 124px);
+	}
 </style>

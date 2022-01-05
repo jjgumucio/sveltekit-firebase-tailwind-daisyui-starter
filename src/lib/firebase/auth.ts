@@ -9,7 +9,29 @@ import {
 import type { User } from 'firebase/auth';
 import { app } from './config';
 import type { iResponse } from './interfaces';
-import UserStore from '$lib/stores/user';
+import { UserStore, isLoggedIn } from '$lib/stores/user';
+
+/**
+ * Custom AuthError for better handling
+ *
+ * @class AuthError
+ * @extends {Error}
+ */
+class AuthError extends Error {
+	code: string;
+	ocurredAt: Date;
+	constructor(code: string, message: string, ...params: never[]) {
+		super(...params);
+		this.name = 'AuthError';
+		this.code = code;
+		this.message = message;
+		this.ocurredAt = new Date();
+	}
+
+	toString = () => {
+		return `\n<===============\n${this.name}:\nCode: ${this.code}\nMessage: ${this.message}\nOcurred at: ${this.ocurredAt}\n================>`;
+	};
+}
 
 /**
  * Firebase Authentication API implementation.
@@ -29,15 +51,19 @@ class FirebaseAuthAPI {
 	 * @param {string} password
 	 * @return {*}  {Promise<iResponse>}
 	 */
-	signUpWithEmail = async (email: string, password: string, rememberMe: boolean): Promise<iResponse> => {
+	signUpWithEmail = async (
+		email: string,
+		password: string,
+		rememberMe: boolean
+	): Promise<iResponse> => {
 		try {
 			const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
 			if (rememberMe) {
-				this.onAuthStateChange()
+				this.onAuthStateChange();
 			}
 			return { status: 200, data: userCredential.user };
 		} catch (error) {
-			throw Error({...error});
+			throw new AuthError(error.code, error.message);
 		}
 	};
 
@@ -61,7 +87,7 @@ class FirebaseAuthAPI {
 			}
 			return { status: 200, data: userCredential.user };
 		} catch (error) {
-			throw Error({...error});
+			throw new AuthError(error.code, error.message);
 		}
 	};
 
@@ -75,12 +101,12 @@ class FirebaseAuthAPI {
 			await signOut(this.auth);
 			return { status: 200 };
 		} catch (error) {
-			throw Error({...error});
+			throw new AuthError(error.code, error.message);
 		}
 	};
 
 	/**
-	 * Adds the Firebase User objet to the UserStore 
+	 * Adds the Firebase User objet to the UserStore
 	 * to keep track of session status
 	 *
 	 * @memberof FirebaseAuthAPI
@@ -91,6 +117,7 @@ class FirebaseAuthAPI {
 		onAuthStateChanged(this.auth, (user) => {
 			if (user) {
 				UserStore.set(user);
+				isLoggedIn.set(true);
 				userObj = user;
 			} else {
 				UserStore.set(null);
@@ -113,7 +140,7 @@ class FirebaseAuthAPI {
 			// The client should redirect to the login page
 			return { status: 200 };
 		} catch (error) {
-			throw Error({...error});
+			throw new AuthError(error.code, error.message);
 		}
 	};
 }
