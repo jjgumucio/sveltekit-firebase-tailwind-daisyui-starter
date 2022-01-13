@@ -26,9 +26,9 @@
 
   let toastId: Number;
   const signUp = async (values: any) => {
-    const { email, password, rememberMe } = values;
+    const { email, password } = values;
     try {
-      await Auth.signUpWithEmail(email, password, rememberMe);
+      await Auth.signUpWithEmail(email, password);
       goto('/grep');
     } catch (error) {
       switch (error.code) {
@@ -87,7 +87,7 @@
             <small>O crea tu cuenta con tus credenciales</small>
           </div>
           <form use:form>
-            <div class="relative w-full mb-3">
+            <div class="relative w-full mb-3 mt-8">
               <label
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 for="grid-email"
@@ -103,7 +103,7 @@
               />
             </div>
 
-            <div class="relative w-full mb-3">
+            <div class="relative w-full mb-3 mt-8">
               <label
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 for="grid-password"
@@ -119,7 +119,7 @@
               />
             </div>
 
-            <div class="relative w-full mb-3">
+            <div class="relative w-full mb-3 mt-8">
               <label
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 for="grid-password"
@@ -135,6 +135,7 @@
               />
             </div>
 
+            <!--
             <div>
               <label class="inline-flex items-center cursor-pointer">
                 <input
@@ -146,6 +147,7 @@
                 <span class="ml-2 text-sm font-semibold text-blueGray-600"> Recordarme </span>
               </label>
             </div>
+            -->
 
             <div class="text-center mt-6">
               <button

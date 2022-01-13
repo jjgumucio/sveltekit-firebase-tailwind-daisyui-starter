@@ -1,9 +1,9 @@
 {
-	"useTabs": false,
-	"singleQuote": true,
-	"trailingComma": "es5",
-	"printWidth": 100,
-	"semicolons": false,
-	"bracketSpacing": true,
-	"proseWrap": "always"
+  "useTabs": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "printWidth": 100,
+  "semicolons": false,
+  "bracketSpacing": true,
+  "proseWrap": "always"
 }

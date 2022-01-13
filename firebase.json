@@ -12,11 +12,7 @@
   },
   "hosting": {
     "public": "",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
@@ -28,11 +24,16 @@
     "rules": "storage.rules"
   },
   "emulators": {
+    "hub": {
+      "name": "hub",
+      "host": "localhost",
+      "port": 4400
+    },
     "auth": {
       "port": 9099
     },
     "firestore": {
-      "port": 8080
+      "port": 8000
     },
     "hosting": {
       "port": 5000

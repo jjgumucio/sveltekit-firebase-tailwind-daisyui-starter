@@ -15,7 +15,7 @@
         return '#0284c7';
     }
   };
-  const color = fontColor(type)
+  const color = fontColor(type);
 
   console.log('TYPE:', type);
   console.log('COLOR:', color);

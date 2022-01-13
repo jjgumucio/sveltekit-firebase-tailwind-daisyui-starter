@@ -26,9 +26,9 @@
 
   let toastId: Number;
   const login = async (values: any) => {
-    const { email, password, rememberMe } = values;
+    const { email, password } = values;
     try {
-      await Auth.signInWithEmail(email, password, rememberMe);
+      await Auth.signInWithEmail(email, password);
       goto('/');
     } catch (error) {
       switch (error.code) {
@@ -87,7 +87,7 @@
             <small>O con tus credenciales</small>
           </div>
           <form use:form>
-            <div class="relative w-full mb-3">
+            <div class="relative w-full mb-3 mt-8">
               <label
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 for="grid-email"
@@ -103,7 +103,7 @@
               />
             </div>
 
-            <div class="relative w-full mb-3">
+            <div class="relative w-full mb-3 mt-8">
               <label
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 for="grid-password"
@@ -118,6 +118,7 @@
                 name="password"
               />
             </div>
+            <!--
             <div>
               <label class="inline-flex items-center cursor-pointer">
                 <input
@@ -129,8 +130,8 @@
                 <span class="ml-2 text-sm font-semibold text-blueGray-600"> Recordarme </span>
               </label>
             </div>
-
-            <div class="text-center mt-6">
+            -->
+            <div class="text-center mt-12">
               <button
                 class="btn text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                 type="submit"

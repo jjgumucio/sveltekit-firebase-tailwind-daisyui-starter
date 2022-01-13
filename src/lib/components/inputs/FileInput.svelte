@@ -1,12 +1,12 @@
 <script lang="ts">
-  export let label: string
-  export let name: string
-  export let multiple: boolean
+  export let label: string;
+  export let name: string;
+  export let multiple: boolean;
 </script>
 
 <template>
-	<label
-		class="
+  <label
+    class="
       label
       w-64
       flex flex-col
@@ -26,8 +26,8 @@
       transition-all
       duration-150
     "
-	>
-		<span class="text-base leading-normal">{label}</span>
-		<input type="file" class="hidden" {name} {multiple} />
-	</label>
+  >
+    <span class="text-base leading-normal">{label}</span>
+    <input type="file" class="hidden" {name} {multiple} />
+  </label>
 </template>
